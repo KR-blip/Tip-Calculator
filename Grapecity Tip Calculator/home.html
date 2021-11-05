@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <title>Document</title>
+</head>
+<script>
+    //to check if tip is negative or alphabet
+
+    function check_tip_value() {
+        var x = 0;
+        var value = parseInt(document.getElementById('tip').value, 10);
+        const message = document.getElementById("tipcheck");
+        message.innerHTML = "";
+        try {
+            if (value < 0) throw "Can't be Negative";
+            if (isNaN(value) && value != "") throw "Not a number";
+        } catch (err) {
+            x = 1;
+            message.innerHTML = err;
+        }
+        return x;
+    }
+    //to check if no of people is negative or alphabet
+
+    function check_nop_value() {
+        var x = 0;
+        var value = parseInt(document.getElementById('nop').value, 10);
+        const message = document.getElementById("tipcheck");
+        message.innerHTML = "";
+        try {
+            if (value < 1) throw "Can't be Negative";
+            if (isNaN(value) && value != "") throw "Not a number";
+        } catch (err) {
+            x = 1;
+            message.innerHTML = err;
+        }
+        return x;
+    }
+
+    //default values when page is loaded
+    function default_value() {
+        document.getElementById('demo').innerHTML = "$" + 0.00;
+        document.getElementById('demo1').innerHTML = "$" + 0.00;
+    }
+
+
+    //Calculates the tip per person and total per person
+    function check_tip() {
+        var y = check_tip_value();
+        var z = check_nop_value();
+        if (y == 0 || z == 0) {
+            var value = parseInt(document.getElementById('tip').value, 10);
+            var people = parseInt(document.getElementById('nop').value, 10);
+            var billamount = parseInt(document.getElementById('bill').value, 10);
+
+
+            var temp = (value / 100) * billamount;
+            var total = (billamount + temp) / people;
+            temp = temp / people;
+
+            document.getElementById('demo').innerHTML = "$" + temp.toFixed(2);
+            document.getElementById('demo1').innerHTML = "$" + total.toFixed(2);
+        }
+
+    }
+
+    //increments tip when button is pressed
+    function increment_tip() {
+        var y = check_tip_value();
+        if (y == 0) {
+            var value = parseInt(document.getElementById('tip').value, 10);
+
+            value = isNaN(value) ? 0 : value;
+            value++;
+
+            document.getElementById('tip').value = value;
+            check_tip()
+        }
+
+    }
+    //decrements tip when button is pressed
+
+    function decrement_tip() {
+        var y = check_tip_value();
+        if (y == 0) {
+            var value = parseInt(document.getElementById('tip').value, 10);
+
+            value = isNaN(value) ? 0 : value;
+            value--;
+
+            document.getElementById('tip').value = value;
+            check_tip()
+        }
+
+
+    }
+
+    //increments no of people when button is pressed
+    function increment_people() {
+        var y = check_nop_value();
+        if (y == 0) {
+            var value = parseInt(document.getElementById('nop').value, 10);
+
+            value = isNaN(value) ? 0 : value;
+            value++;
+
+            document.getElementById('nop').value = value;
+            check_tip()
+
+        }
+    }
+
+    //decrements no of people when button is pressed
+
+    function decrement_people() {
+        var y = check_tip_value();
+        if (y == 0) {
+            var value = parseInt(document.getElementById('nop').value, 10);
+
+            value = isNaN(value) ? 0 : value;
+            value--;
+
+            document.getElementById('nop').value = value;
+            check_tip()
+
+        }
+    }
+</script>
+
+<body onload="default_value()">
+
+    <div class="row">
+        <div class="column">
+            <label>
+                Bill<br>
+                <input type="text" name="bill" id="bill">
+            </label>
+            <br>
+
+            <label>
+                Tip%<br>
+                <input type="button" onclick="decrement_tip()" value="-" id="tip_dec" />
+                <input type="text"  id="tip" onkeypress="check_tip" onchange="check_tip()">
+                <input type="button" onclick="increment_tip()" value="+">
+                
+            </label><br>
+
+            <label>
+                Number of people <br>
+                <input type="button" onclick="decrement_people()" value="-" id="tip_dec" />
+                <input type="text"  id="nop" onkeypress="check_tip" onchange="check_tip()">
+                <input type="button" onclick="increment_people()" value="+">
+            </label>
+            <p id="tipcheck"></p>
+        </div>
+        <div class="column">
+            <div class="row">
+                <div class="col">
+
+
+                    <b>
+                        <h1>Tip</h1></b><br>
+                    <h4>per person</h4>
+                </div>
+                <div class="col">
+                    <h2>
+                        <p id="demo">
+                        </p>
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+
+                    <b>
+                        <h1>Total</h1></b><br>
+                    <h4>per person</h4>
+                </div>
+                <div class="col">
+                    <b></b>
+                    <h1>
+                        <p id="demo1">
+                        </p>
+                    </h1>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+</html>
